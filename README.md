@@ -11,7 +11,25 @@ I recommend using two different environments as there might be a version conflic
 Please also note that using densepose require detectron2 installed. See [here](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) for more details.
 
 ## How to use it?
-![](magic.gif)
+<p align="center">
+  <table align="center">
+    <tr>
+    <td>
+      <img src="magic-animate/assets/teaser/t1.gif">
+    </td>
+    <td>
+      <img src="magic-animate/assets/teaser/t4.gif">
+    </td>
+    </tr>
+    <tr>
+    <td>
+      <img src="magic-animate/assets/teaser/t3.gif">
+    </td>
+    <td>
+      <img src="magic-animate/assets/teaser/t2.gif">
+    </td>
+    </tr>
+  </table>
 
 To run magic-animate, we'll need:
  - A reference image
