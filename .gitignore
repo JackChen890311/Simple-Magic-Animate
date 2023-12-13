@@ -1,0 +1,12 @@
+Demo/*
+
+DensePose/data/*
+DensePose/densepose_rcnn_R_50_FPN_s1x.pkl
+DensePose/densepose_rcnn_R_101_FPN_DL_s1x.pkl
+
+magic-animate/data/*
+magic-animate/demo/outputs/*
+magic-animate/pretrained_models/*
+magic-animate/samples/*
+magic-animate/inputs/applications/*
+
