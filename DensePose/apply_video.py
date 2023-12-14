@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 
@@ -16,13 +17,19 @@ from densepose.vis.densepose_results import (
     DensePoseResultsVVisualizer,
 )
 
-cfg = get_cfg()
-add_densepose_config(cfg)
 
+# Please remember to download the model from densepose github
 # model_name = 'densepose_rcnn_R_50_FPN_s1x'
 model_name = 'densepose_rcnn_R_101_FPN_DL_s1x'
+
 input_video = 'data/022.mp4'
-output_video = 'data/output/022_dense.mp4'
+output_video = 'outputs/022_dense.mp4'
+start_frame = 0 # 0 for all frames
+end_frame = 300 # -1 for all frames
+
+cfg = get_cfg()
+add_densepose_config(cfg)
+os.makedirs('outputs', exist_ok=True)
 
 cfg.merge_from_file(f"configs/{model_name}.yaml")
 cfg.MODEL.DEVICE = "cuda"
@@ -33,7 +40,7 @@ predictor = DefaultPredictor(cfg)
 
 VISUALIZERS = {
     "dp_contour": DensePoseResultsContourVisualizer,
-    "dp_segm": DensePoseResultsFineSegmentationVisualizer,
+    "dp_segm": DensePoseResultsFineSegmentationVisualizer, # I've changed this class
     "dp_u": DensePoseResultsUVisualizer,
     "dp_v": DensePoseResultsVVisualizer,
     "bbox": ScoredBoundingBoxVisualizer,
@@ -64,12 +71,15 @@ width = int(captura.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(captura.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(captura.get(cv2.CAP_PROP_FPS))
 
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 
 def predict(img):
     outputs = predictor(img)['instances']
     image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     image = np.tile(image[:, :, np.newaxis], [1, 1, 3])
     data = extractor(outputs)
+    # Fixed value for purple background
     image = np.ones_like(image)
     image[:,:,0] *= 84 #81
     image[:,:,1] *= 0  # 0
@@ -77,24 +87,23 @@ def predict(img):
     image_vis = visualizer.visualize(image, data)
 
     return image_vis
-    
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 
 cnt = 0
 while captura.isOpened():
-    print('Progress: %d / %d' % (cnt, total_frame))
     cnt += 1
+    print('Progress: %d / %d' % (cnt, total_frame))
     ret, frame = captura.read()
     if not ret:
         break
 
-    if cnt < 60:
+    # Your own frame range
+    if cnt <= start_frame:
         continue
+    if cnt == end_frame:
+        break
+
     result = predict(frame)
     out.write(result)
-    if cnt == 360:
-        break
  
 captura.release()
 out.release()

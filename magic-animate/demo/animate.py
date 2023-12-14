@@ -184,12 +184,15 @@ class MagicAnimate():
 
             samples_per_video = torch.cat(samples_per_video)
 
+            # I've changed here to save the videos separately
             time_str = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-            savedir = f"demo/outputs"
-            animation_path = f"{savedir}/{time_str}.mp4"
+            savedir = f"outputs/{time_str}"
+            grid_path = f"{savedir}/grid.mp4"
+            animation_path = f"{savedir}/animation.mp4"
 
             os.makedirs(savedir, exist_ok=True)
-            save_videos_grid(samples_per_video, animation_path)
+            save_videos_grid(samples_per_video, grid_path)
+            save_videos_grid(sample[:, :, :original_length], animation_path)
             
             return animation_path
             
