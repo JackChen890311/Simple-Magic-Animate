@@ -1,7 +1,7 @@
 import cv2
 
-input_video = 'data/video/dense/022_dense.mp4'
-output_video = 'data/video/022_pad.mp4'
+input_video = 'data/video/dense/d1cen_dense.mp4'
+output_video = 'data/video/d1cen_pad.mp4'
 
 captura = cv2.VideoCapture(input_video)
 fps = captura.get(cv2.CAP_PROP_FPS)
@@ -26,9 +26,10 @@ for i in range(total_frame):
     top, bottom = delta_h//2, delta_h-(delta_h//2)
     left, right = delta_w//2, delta_w-(delta_w//2)
 
+    # Set color to pad
     color = [81, 0, 65]
-    assert frame[0][0].tolist() == color
-    frame = cv2.copyMakeBorder(frame, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+    assert frame[0][0].tolist() == color # comment this line if raise error
+    frame = cv2.copyMakeBorder(frame, top, bottom, left, right, cv2.BORDER_CONSTANT, value=frame[0][0].tolist())
 
     frame = cv2.resize(frame, (final_size, final_size))
     video.write(frame)

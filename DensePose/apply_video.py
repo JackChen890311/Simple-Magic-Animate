@@ -22,10 +22,10 @@ from densepose.vis.densepose_results import (
 # model_name = 'densepose_rcnn_R_50_FPN_s1x'
 model_name = 'densepose_rcnn_R_101_FPN_DL_s1x'
 
-input_video = 'data/022.mp4'
-output_video = 'outputs/022_dense.mp4'
+input_video = 'data/hiit2.mp4'
+output_video = 'outputs/hiit2_dense.mp4'
 start_frame = 0 # 0 for all frames
-end_frame = 300 # -1 for all frames
+end_frame = -1 # -1 for all frames
 
 cfg = get_cfg()
 add_densepose_config(cfg)
@@ -90,8 +90,8 @@ def predict(img):
 
 cnt = 0
 while captura.isOpened():
-    cnt += 1
     print('Progress: %d / %d' % (cnt, total_frame))
+    cnt += 1
     ret, frame = captura.read()
     if not ret:
         break

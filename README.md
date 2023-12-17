@@ -41,12 +41,12 @@ Resolution is set at 512 x 512 for better result, you can also try different res
 
 For image, you can crop and resize it by yourself, or use `magic-animate/crop_image.py` to do so with OpenCV.  
 
-For motion sequence, use `DensePose/apply_video.py` to generate motion sequence, then use `magic-animate/pad_video.py` to pad it and resize it into 512 x 512.  
+For motion sequence, use `DensePose/apply_video.py` to generate motion sequence, then use `magic-animate/pad_video.py` to pad it and resize it into 512 x 512. Use `magic-animate/crop_video.py` if needed.  
 
 Finally, use `magic-animate/inference.py` to run magic-animate inference. You should be able to find your results at `magic-animate/outputs/{time}`. (Inference code is from [here](https://github.com/magic-research/magic-animate/issues/71))
 
 ### Examples
-![](sun.gif)
+![](anime_dance.gif)
 
 ---
 
