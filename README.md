@@ -41,7 +41,7 @@ Resolution is set at 512 x 512 for better result, you can also try different res
 
 For image, you can crop and resize it by yourself, or use `magic-animate/crop_image.py` to do so with OpenCV.  
 
-For motion sequence, use `DensePose/apply_video.py` to generate motion sequence, then use `magic-animate/pad_video.py` to pad it and resize it into 512 x 512. Use `magic-animate/crop_video.py` if needed.  
+For motion sequence, use `DensePose/apply_video.py` to generate motion sequence, then use `magic-animate/pad_video.py` to pad it and resize it into 512 x 512. Use `magic-animate/crop_video.py` if needed. The model config file I used is `densepose_rcnn_R_101_FPN_DL_s1x.yaml`, and model checkpoint can be downloaded from [here](https://dl.fbaipublicfiles.com/densepose/densepose_rcnn_R_101_FPN_DL_s1x/165712116/model_final_844d15.pkl), see [Densepose Readme (R_101_FPN_DL_s1x)](https://github.com/facebookresearch/detectron2/blob/main/projects/DensePose/doc/DENSEPOSE_IUV.md#-improved-baselines-deeplabv3-head) for more details.
 
 Finally, use `magic-animate/inference.py` to run magic-animate inference. You should be able to find your results at `magic-animate/outputs/{time}`. (Inference code is from [here](https://github.com/magic-research/magic-animate/issues/71))
 
